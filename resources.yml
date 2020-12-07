@@ -1,0 +1,73 @@
+Description: >
+    Muhammad Yasser / Udacity Nanodegree
+    This is a template for creating a VPC
+
+Parameters: 
+
+    EnvironmentName: 
+        Description: A name that will be listed with any created Resources
+        Type: String
+
+Resources:
+
+
+    LBSecurityGroup:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+            GroupDescription: Allow http to the load balancer
+            VpcId:
+                Ref: VPC
+            SecurityGroupIngress:
+                - IpProtocol: tcp
+                  FromPort: 80
+                  ToPort: 80
+                  CidrIp: 0.0.0.0/0
+            SecurityGroupEgress:
+                - IpProtocol: tcp
+                  FromPort: 80
+                  ToPort: 80
+                  CidrIp: 0.0.0.0/0
+
+                  
+    WebServerSecGroup:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+            GroupDescription: Allow http to the the web server ports and ssh 
+            VpcId:
+                Ref: VPC
+            SecurityGroupIngress:
+                - IpProtocol: tcp
+                  FromPort: 8080
+                  ToPort: 8080
+                  CidrIp: 0.0.0.0/0
+                - IpProtocol: tcp
+                  FromPort: 22
+                  ToPort: 22
+                  CidrIp: 0.0.0.0/0
+            SecurityGroupEgress:
+                - IpProtocol: tcp
+                  FromPort: 0
+                  ToPort: 65535
+                  CidrIp: 0.0.0.0/0
+
+    WebAppLaunchConfig:
+        Type: AWS::AutoScaling::LaunchConfiguration
+        Properties:
+            UserData:
+                Fn::Base64: !Sub |
+                #!/bin/bash
+                apt-get update -y
+                apt-get install apache2 -y
+                systemctl start apache2.service
+                cd /var/www/html
+                echo "Udacity Demo Web Server Up and Running!" > index.html
+
+            ImageId: ami-005bdb005fb00e791
+            # IamInstanceProfile: !Ref ProfileWithRolesForOurApp
+            SecurityGroups:
+                - Ref: WebServerSecGroup
+            InstanceType: t2.micro
+            BlockDeviceMappings:
+                - DeviceName: "/dev/sdk"
+                Ebs:
+                    VolumeSize: '10'
