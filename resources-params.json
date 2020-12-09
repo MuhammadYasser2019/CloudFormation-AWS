@@ -2,5 +2,9 @@
     { 
         "ParameterKey": "EnvironmentName",
         "ParameterValue": "UdacityProject" 
+    }, 
+    { 
+        "ParameterKey": "ManagedPolicyForS3",
+        "ParameterValue": "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess" 
     }
 ]

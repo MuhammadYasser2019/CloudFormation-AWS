@@ -33,9 +33,9 @@ Parameters:
         Type: String
         Default: 10.20.5.0/24
     
-    MyCustomerGateway:
-        Description: This is the address for the on-prem router
-        Type: String
+    # MyCustomerGateway:
+    #     Description: This is the address for the on-prem router
+    #     Type: String
 
     
   
