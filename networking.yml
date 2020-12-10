@@ -37,10 +37,6 @@ Parameters:
     #     Description: This is the address for the on-prem router
     #     Type: String
 
-    
-  
-
-
 Resources:
 
     VPC:
@@ -93,7 +89,7 @@ Resources:
             VpcId: !Ref VPC
             AvailabilityZone: !Select [ 0, !GetAZs '' ]
             CidrBlock: !Ref PublicSubnet1CIDR
-            MapPublicIpOnLaunch: false
+            MapPublicIpOnLaunch: true
             Tags: 
                 - Key: Name 
                   Value: !Sub ${EnvironmentName} Public Subnet (AZ1)
@@ -103,7 +99,7 @@ Resources:
             VpcId: !Ref VPC
             AvailabilityZone: !Select [ 1, !GetAZs '' ]
             CidrBlock: !Ref PublicSubnet2CIDR
-            MapPublicIpOnLaunch: false
+            MapPublicIpOnLaunch: true
             Tags: 
                 - Key: Name 
                   Value: !Sub ${EnvironmentName} Public Subnet (AZ2)

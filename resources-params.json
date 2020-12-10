@@ -7,4 +7,5 @@
         "ParameterKey": "ManagedPolicyForS3",
         "ParameterValue": "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess" 
     }
+
 ]
