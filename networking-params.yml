@@ -25,8 +25,4 @@
         "ParameterKey": "PublicSubnet2CIDR",
         "ParameterValue": "10.20.5.0/24"
     },
-    {
-        "ParameterKey": "MyCustomerGateway",
-        "ParameterValue": "1.1.1.1"
-    }
 ]
